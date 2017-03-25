@@ -10,13 +10,17 @@ class BookController extends Controller
     * GET /books
     */
     public function index() {
-        return 'Here are all the books...';
+        return view('books.show')->with([
+            'title' => null,
+        ]);
     }
 
     /**
     * GET /books/{title?}
     */
     public function view($title = '') {
-        return 'You want to view the book '.$title;
+        return view('books.show')->with([
+            'title' => $title,
+        ]);
     }
 }

@@ -181,6 +181,8 @@ return [
 
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
+
+
     ],
 
     /*
