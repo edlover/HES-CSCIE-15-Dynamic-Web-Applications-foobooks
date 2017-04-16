@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Book;
 use Rych\Random\Random;
 
 class PracticeController extends Controller {
@@ -71,4 +72,95 @@ class PracticeController extends Controller {
             dd("Practice route [{$n}] not defined");
 
     }
-}
+
+
+    public function practice5() {
+        $book = new Book();
+        $books = Book::where('published', '>', 1950)->take(5)->get();
+
+        if($books->isEmpty()) {
+            dump('No matches found');
+        }
+        else {
+            dump($books->toArray()); # Study the results
+        }
+
+    }
+
+    public function practice6() {
+
+        $books = Book::latest('created_at')->get();
+
+        if($books->isEmpty()) {
+            dump('No matches found');
+        }
+        else {
+            dump($books->toArray()); # Study the results
+        }
+    }
+
+    public function practice7() {
+
+        $book = new Book();
+        $books = Book::orderBy('Title')->get();
+
+        if($books->isEmpty()) {
+            dump('No matches found');
+        }
+        else {
+            foreach($books as $book) {
+                dump($book->title);
+            }
+        }
+    }
+
+        public function practice8() {
+
+            $book = new Book();
+            $books = Book::orderBy('published', 'asc')->get();
+
+            if($books->isEmpty()) {
+                dump('No matches found');
+            }
+            else {
+                foreach($books as $book) {
+                    dump($book->published, $book->title);
+                }
+            }
+        }
+
+        public function practice9() {
+
+            $book = new Book();
+            $books = Book::where('author', '=', 'Bell Hooks')->get();
+
+            if($books->isEmpty()) {
+                dump('No matches found');
+            }
+            else {
+                foreach($books as $book) {
+                    $book->author = 'bell hooks';
+                    $book->save();
+
+                    dump('Update complete; check the database to confirm the update worked.');
+                }
+            }
+        }
+
+        public function practice10() {
+
+            $book = new Book();
+            $books = Book::where('author', '=', 'J.K. Rowling')->get();
+
+            if($books->isEmpty()) {
+                dump('No matches found');
+            }
+            else {
+                foreach($books as $book) {
+                    $book->delete();
+
+                    dump('Deletion complete; check the database to see if it worked...');
+                }
+            }
+        }
+    }
